@@ -18,6 +18,7 @@ import com.hafidmust.academy.databinding.ContentDetailCourseBinding
 import com.hafidmust.academy.databinding.FragmentModuleContentBinding
 import com.hafidmust.academy.ui.reader.CourseReaderActivity
 import com.hafidmust.academy.utils.DataDummy
+import com.hafidmust.academy.viewmodel.ViewModelFactory
 
 class DetailCourseActivity : AppCompatActivity() {
 
@@ -37,8 +38,8 @@ class DetailCourseActivity : AppCompatActivity() {
         setSupportActionBar(activityDetailCourseBinding.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailCourseViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
 
         val adapter = DetailCourseAdapter()
         val extras = intent.extras

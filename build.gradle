@@ -21,6 +21,6 @@ ext {
     materialVersion = '1.2.1'
     recyclerViewVersion = '1.1.0'
     glideVersion = '4.11.0'
-
+    mockitoVersion = '3.6.0'
     kotlin_version = '1.4.31'
 }
