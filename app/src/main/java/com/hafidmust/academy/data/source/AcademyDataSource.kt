@@ -1,17 +1,18 @@
 package com.hafidmust.academy.data.source
 
+import androidx.lifecycle.LiveData
 import com.hafidmust.academy.data.CourseEntity
 import com.hafidmust.academy.data.ModuleEntity
 
 interface AcademyDataSource {
-    fun getAllCourses() : List<CourseEntity>
+    fun getAllCourses() : LiveData<List<CourseEntity>>
 
-    fun getBookmarkedCourse() : List<CourseEntity>
+    fun getBookmarkedCourse() : LiveData<List<CourseEntity>>
 
-    fun getCourseWithModules(courseId : String) : CourseEntity
+    fun getCourseWithModules(courseId : String) : LiveData<CourseEntity>
 
-    fun getAllModuleByCourse(courseId: String) : List<ModuleEntity>
+    fun getAllModuleByCourse(courseId: String) : LiveData<List<ModuleEntity>>
 
-    fun getContent(courseId: String, moduleId : String) : ModuleEntity
+    fun getContent(courseId: String, moduleId : String) : LiveData<ModuleEntity>
 
 }
