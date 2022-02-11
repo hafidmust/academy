@@ -1,11 +1,17 @@
 package com.hafidmust.academy.ui.reader
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.hafidmust.academy.data.ContentEntity
+import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.ModuleEntity
 import com.hafidmust.academy.data.source.AcademyRepository
 import com.hafidmust.academy.utils.DataDummy
 import org.junit.Assert.*
 
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -23,8 +29,19 @@ class CourseReaderViewModelTest {
     private val dummyModules = DataDummy.generateDummyModules(courseId)
     private val moduleId = dummyModules[0].moduleId
 
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
     @Mock
     private lateinit var academyRepository: AcademyRepository
+
+    @Mock
+    private lateinit var modulesObserver: Observer<List<ModuleEntity>>
+
+    @Mock
+    private lateinit var moduleObserver: Observer<ModuleEntity>
+
+
 
     @Before
     fun setUp() {
@@ -40,23 +57,34 @@ class CourseReaderViewModelTest {
 
     @Test
     fun getModules() {
-        `when`(academyRepository.getAllModuleByCourse(courseId)).thenReturn(dummyModules)
-        val moduleEntites = viewModel.getModules()
+        val modules = MutableLiveData<List<ModuleEntity>>()
+        modules.value = dummyModules
+
+        `when`(academyRepository.getAllModuleByCourse(courseId)).thenReturn(modules)
+        val moduleEntites = viewModel.getModules().value
         verify(academyRepository).getAllModuleByCourse(courseId)
         assertNotNull(moduleEntites)
-        assertEquals(7, moduleEntites.size.toLong())
+        assertEquals(7, moduleEntites?.size)
+
+        viewModel.getModules().observeForever(modulesObserver)
+        verify(modulesObserver).onChanged(dummyModules)
     }
 
     @Test
     fun getSelectedModule() {
-        `when`(academyRepository.getContent(courseId, moduleId)).thenReturn(dummyModules[0])
-        val moduleEntity = viewModel.getSelectedModule()
+        val module = MutableLiveData<ModuleEntity>()
+        module.value = dummyModules[0]
+        `when`(academyRepository.getContent(courseId, moduleId)).thenReturn(module)
+        val moduleEntity = viewModel.getSelectedModule().value
         verify(academyRepository).getContent(courseId, moduleId)
         assertNotNull(moduleEntity)
-        val contentEntity = moduleEntity.contentEntity
+        val contentEntity = moduleEntity?.contentEntity
         assertNotNull(contentEntity)
         val content = contentEntity?.content
         assertNotNull(content)
         assertEquals(content, dummyModules[0].contentEntity?.content)
+
+        viewModel.getSelectedModule().observeForever(moduleObserver)
+        verify(moduleObserver).onChanged(dummyModules[0])
     }
 }
