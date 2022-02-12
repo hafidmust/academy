@@ -5,6 +5,7 @@ import android.os.Looper
 import com.hafidmust.academy.data.source.remote.response.ContentResponse
 import com.hafidmust.academy.data.source.remote.response.CourseResponse
 import com.hafidmust.academy.data.source.remote.response.ModuleResponse
+import com.hafidmust.academy.utils.EspressoIdlingResource
 import com.hafidmust.academy.utils.JsonHelper
 
 
@@ -26,7 +27,10 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper){
     }
 
     fun getAllCourses(callback : LoadCoursesCallback) {
-        handler.postDelayed({callback.onAllCoursesReceived(jsonHelper.loadCourses())}, SERVICE_LATENCY_IN_MILIS)
+        EspressoIdlingResource.increment()
+        handler.postDelayed({callback.onAllCoursesReceived(jsonHelper.loadCourses())
+                            EspressoIdlingResource.decrement()
+                            }, SERVICE_LATENCY_IN_MILIS)
     }
 
     interface LoadCoursesCallback {
@@ -35,7 +39,10 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper){
     }
 
     fun getModules(courseId: String, callback : LoadModulesCallback) {
-        handler.postDelayed({callback.onAllModulesReceived(jsonHelper.loadModule(courseId))}, SERVICE_LATENCY_IN_MILIS)
+        EspressoIdlingResource.increment()
+        handler.postDelayed({callback.onAllModulesReceived(jsonHelper.loadModule(courseId))
+                            EspressoIdlingResource.decrement()
+                            }, SERVICE_LATENCY_IN_MILIS)
     }
 
     interface LoadModulesCallback {
@@ -43,7 +50,10 @@ class RemoteDataSource private constructor(private val jsonHelper: JsonHelper){
     }
 
     fun getContent(moduleId : String, callback: LoadContentCallback) {
-        handler.postDelayed({callback.onContentReceived(jsonHelper.loadContent(moduleId))}, SERVICE_LATENCY_IN_MILIS)
+        EspressoIdlingResource.increment()
+        handler.postDelayed({callback.onContentReceived(jsonHelper.loadContent(moduleId))
+                            EspressoIdlingResource.decrement()
+                            }, SERVICE_LATENCY_IN_MILIS)
     }
 
     interface LoadContentCallback {
