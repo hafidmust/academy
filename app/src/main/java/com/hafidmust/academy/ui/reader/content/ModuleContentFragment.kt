@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.hafidmust.academy.R
-import com.hafidmust.academy.data.ContentEntity
 import com.hafidmust.academy.data.ModuleEntity
 import com.hafidmust.academy.databinding.FragmentModuleContentBinding
 import com.hafidmust.academy.ui.reader.CourseReaderViewModel

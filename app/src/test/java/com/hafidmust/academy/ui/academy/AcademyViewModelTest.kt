@@ -3,7 +3,7 @@ package com.hafidmust.academy.ui.academy
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 import com.hafidmust.academy.data.source.AcademyRepository
 import com.hafidmust.academy.utils.DataDummy
 import org.junit.Assert.*

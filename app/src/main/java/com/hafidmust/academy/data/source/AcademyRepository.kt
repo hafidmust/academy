@@ -2,8 +2,8 @@ package com.hafidmust.academy.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hafidmust.academy.data.ContentEntity
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.ContentEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 import com.hafidmust.academy.data.ModuleEntity
 import com.hafidmust.academy.data.source.remote.RemoteDataSource
 import com.hafidmust.academy.data.source.remote.response.ContentResponse

@@ -9,9 +9,8 @@ import androidx.core.app.ShareCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hafidmust.academy.R
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 import com.hafidmust.academy.databinding.FragmentBookmarkBinding
-import com.hafidmust.academy.utils.DataDummy
 import com.hafidmust.academy.viewmodel.ViewModelFactory
 
 

@@ -1,4 +1,4 @@
-package com.hafidmust.academy.data
+package com.hafidmust.academy.data.source.local.entity
 
 import androidx.room.ColumnInfo
 

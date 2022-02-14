@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.hafidmust.academy.R
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 import com.hafidmust.academy.databinding.ItemsAcademyBinding
 import com.hafidmust.academy.ui.detail.DetailCourseActivity
 

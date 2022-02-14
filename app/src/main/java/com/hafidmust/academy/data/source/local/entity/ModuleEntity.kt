@@ -1,7 +1,7 @@
+package com.hafidmust.academy.data.source.local.entity
+
 import androidx.annotation.NonNull
 import androidx.room.*
-import com.hafidmust.academy.data.ContentEntity
-import com.hafidmust.academy.data.CourseEntity
 
 @Entity(tableName = "moduleentities",
     primaryKeys = ["moduleId", "courseId"],

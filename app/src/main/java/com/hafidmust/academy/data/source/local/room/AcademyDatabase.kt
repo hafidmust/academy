@@ -1,11 +1,11 @@
 package com.hafidmust.academy.data.source.local.room
 
-import ModuleEntity
+import com.hafidmust.academy.data.source.local.entity.ModuleEntity
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 
 @Database(entities = [CourseEntity::class, ModuleEntity::class],
     version = 1,

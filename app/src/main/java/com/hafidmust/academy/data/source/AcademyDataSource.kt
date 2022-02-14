@@ -1,7 +1,7 @@
 package com.hafidmust.academy.data.source
 
 import androidx.lifecycle.LiveData
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 import com.hafidmust.academy.data.ModuleEntity
 
 interface AcademyDataSource {

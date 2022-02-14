@@ -3,7 +3,6 @@ package com.hafidmust.academy.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,13 +11,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.hafidmust.academy.R
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 
 import com.hafidmust.academy.databinding.ActivityDetailCourseBinding
 import com.hafidmust.academy.databinding.ContentDetailCourseBinding
-import com.hafidmust.academy.databinding.FragmentModuleContentBinding
 import com.hafidmust.academy.ui.reader.CourseReaderActivity
-import com.hafidmust.academy.utils.DataDummy
 import com.hafidmust.academy.viewmodel.ViewModelFactory
 
 class DetailCourseActivity : AppCompatActivity() {

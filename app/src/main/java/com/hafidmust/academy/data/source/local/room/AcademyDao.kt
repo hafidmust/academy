@@ -1,9 +1,9 @@
 package com.hafidmust.academy.data.source.local.room
 
-import ModuleEntity
+import com.hafidmust.academy.data.source.local.entity.ModuleEntity
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.hafidmust.academy.data.CourseEntity
+import com.hafidmust.academy.data.source.local.entity.CourseEntity
 import com.hafidmust.academy.data.source.local.entity.CourseWithModule
 
 @Dao
