@@ -3,6 +3,7 @@ package com.hafidmust.academy.ui.detail
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,6 +18,7 @@ import com.hafidmust.academy.databinding.ActivityDetailCourseBinding
 import com.hafidmust.academy.databinding.ContentDetailCourseBinding
 import com.hafidmust.academy.ui.reader.CourseReaderActivity
 import com.hafidmust.academy.viewmodel.ViewModelFactory
+import com.hafidmust.academy.vo.Status
 
 class DetailCourseActivity : AppCompatActivity() {
 
@@ -48,18 +50,30 @@ class DetailCourseActivity : AppCompatActivity() {
                 activityDetailCourseBinding.content.visibility = View.INVISIBLE
 
                 viewModel.setSelectedCourse(courseId)
-                viewModel.getModules().observe(this){
-                    activityDetailCourseBinding.progressBar.visibility = View.GONE
-                    activityDetailCourseBinding.content.visibility = View.VISIBLE
+                viewModel.courseModule.observe(this){ courseWithModuleResource ->
+                    if (courseWithModuleResource != null){
+                        when(courseWithModuleResource.status){
+                            Status.LOADING -> activityDetailCourseBinding.progressBar.visibility = View.VISIBLE
+                            Status.ERROR -> {
+                                activityDetailCourseBinding.progressBar.visibility = View.GONE
+                                Toast.makeText(applicationContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                            }
+                            Status.SUCCESS ->{
+                                activityDetailCourseBinding.progressBar.visibility = View.GONE
+                                activityDetailCourseBinding.content.visibility = View.VISIBLE
 
-                    adapter.setModules(it)
-                    adapter.notifyDataSetChanged()
+                                adapter.setModules(courseWithModuleResource.data?.mModules)
+                                adapter.notifyDataSetChanged()
+                                courseWithModuleResource.data?.let { populateCourse(it.mCourse) }
+                            }
+                        }
+
+                    }
+
 
                 }
 
-                viewModel.getCourse().observe(this){
-                    populateCourse(it)
-                }
+
             }
         }
 

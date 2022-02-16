@@ -1,19 +1,33 @@
 package com.hafidmust.academy.ui.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.hafidmust.academy.data.source.local.entity.CourseEntity
-import com.hafidmust.academy.data.ModuleEntity
 import com.hafidmust.academy.data.source.AcademyRepository
+import com.hafidmust.academy.data.source.local.entity.CourseWithModule
+import com.hafidmust.academy.vo.Resource
 
 class DetailCourseViewModel(private val academyRepository: AcademyRepository) : ViewModel() {
-    private lateinit var courseId : String
+    val courseId = MutableLiveData<String>()
 
     fun setSelectedCourse(courseId : String){
-        this.courseId = courseId
+        this.courseId.value = courseId
     }
 
-    fun getCourse() : LiveData<CourseEntity> = academyRepository.getCourseWithModules(courseId)
+    var courseModule: LiveData<Resource<CourseWithModule>> = Transformations.switchMap(courseId){courseId ->
+        academyRepository.getCourseWithModules(courseId)
+    }
 
-    fun getModules() : LiveData<List<ModuleEntity>> = academyRepository.getAllModuleByCourse(courseId)
+    fun setBookmark(){
+        val moduleResouse = courseModule.value
+        if (moduleResouse != null){
+            val courseWithModule = moduleResouse.data
+            if (courseWithModule != null){
+                val courseEntity = courseWithModule.mCourse
+                val newState = !courseEntity.bookmarked
+                academyRepository.setCourseBookMark(courseEntity, newState)
+            }
+        }
+    }
 }
