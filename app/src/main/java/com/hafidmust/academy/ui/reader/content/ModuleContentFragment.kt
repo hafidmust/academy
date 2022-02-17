@@ -16,6 +16,8 @@ import com.hafidmust.academy.vo.Status
 
 class ModuleContentFragment : Fragment() {
 
+    private lateinit var viewModel: CourseReaderViewModel
+
     companion object{
         val TAG: String = ModuleContentFragment::class.java.simpleName
         fun newInstance() : ModuleContentFragment = ModuleContentFragment()
@@ -36,7 +38,7 @@ class ModuleContentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null){
             val factory = ViewModelFactory.getInstance(requireActivity())
-            val viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
+            viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
             viewModel.selectedModule.observe(viewLifecycleOwner){ moduleEntity ->
 
                 if (moduleEntity != null){
@@ -49,6 +51,7 @@ class ModuleContentFragment : Fragment() {
                                     populateWebView(moduleEntity.data)
                                 }
 //                                setbutton next
+                                setButtonNextPrevState(moduleEntity.data)
                                 if (!moduleEntity.data.read){
                                     viewModel.readContent(moduleEntity.data)
                                 }
@@ -58,7 +61,33 @@ class ModuleContentFragment : Fragment() {
                             binding.progressBar.visibility = View.GONE
                             Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                         }
+
                     }
+                    binding.btnNext.setOnClickListener {
+                        viewModel.setNextPage()
+                    }
+                    binding.btnPrev.setOnClickListener {
+                        viewModel.setPrevPage()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setButtonNextPrevState(module: ModuleEntity) {
+        if (activity != null){
+            when(module.position){
+                0 ->{
+                    binding.btnPrev.isEnabled = false
+                    binding.btnNext.isEnabled = true
+                }
+                viewModel.getModuleSize() -1 ->{
+                    binding.btnNext.isEnabled = false
+                    binding.btnPrev.isEnabled = true
+                }
+                else ->{
+                    binding.btnNext.isEnabled = true
+                    binding.btnPrev.isEnabled = true
                 }
             }
         }

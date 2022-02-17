@@ -1,7 +1,7 @@
 package com.hafidmust.academy.utils
 
 import com.hafidmust.academy.data.source.local.entity.CourseEntity
-import com.hafidmust.academy.data.ModuleEntity
+import com.hafidmust.academy.data.source.local.entity.ModuleEntity
 import com.hafidmust.academy.data.source.remote.response.ContentResponse
 import com.hafidmust.academy.data.source.remote.response.CourseResponse
 import com.hafidmust.academy.data.source.remote.response.ModuleResponse
