@@ -65,15 +65,15 @@ class CourseReaderViewModelTest {
         viewModel.modules.observeForever(observer)
         verify(observer).onChanged(resource)
 
-//        @Test
-//        fun getSelectedModule() {
-//            val module = MutableLiveData<Resource<ModuleEntity>>()
-//            val resource = Resource.success(dummyModules[0])
-//            module.value = resource
-//            `when`(academyRepository.getContent(moduleId)).thenReturn(module)
-//            val observer = mock(Observer::class.java) as Observer<Resource<ModuleEntity>>
-//            viewModel.selectedModule.observeForever(observer)
-//            verify(observer).onChanged(resource)
-//        }
+        @Test
+        fun getSelectedModule() {
+            val module = MutableLiveData<Resource<ModuleEntity>>()
+            val resource = Resource.success(dummyModules[0])
+            module.value = resource
+            `when`(academyRepository.getContent(moduleId)).thenReturn(module)
+            val observer = mock(Observer::class.java) as Observer<Resource<ModuleEntity>>
+            viewModel.selectedModule.observeForever(observer)
+            verify(observer).onChanged(resource)
+        }
     }
 }
